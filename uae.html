@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UAE Heritage & Tourism</title>
+  <style>
+    /* General Styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      transition: color 0.3s;
+    }
+
+    /* Header Styling (Align Left) */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      z-index: 10;
+      padding: 20px 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #6d4242;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar li {
+      margin: 0 20px;
+      position: relative;
+    }
+
+    .navbar a {
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .navbar a:hover {
+      color: #413825;
+    }
+
+    /* Button Styling (Black Buttons) */
+    .buttons {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn {
+      background-color: black;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:hover {
+      background-color: #333;
+    }
+
+    /* Main Content Styling */
+    .main-content {
+      position: relative;
+      height: 100vh;
+      margin-top: 60px;
+    }
+
+    .image-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .background-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    .overlay-text h1 {
+      font-size: 3rem;
+    }
+
+    .overlay-text p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    /* Sections to be toggled */
+    .explore-section, .booking-section, .contact-section {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .activities, .booking-options, .contact-form {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .activity-card, .booking-card, .contact-card {
+      background-color: #fff;
+      width: 30%;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .activity-card img, .booking-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .activity-card h3, .booking-card h3 {
+      font-size: 1.5rem;
+    }
+
+    .activity-card p, .booking-card p {
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .contact-form button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background-color: #218838;
+    }
+
+    /* Footer Section */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px;
+      background-color: #333;
+      color: white;
+    }
+
+    .footer .footer-left img {
+      width: 200px;
+    }
+
+    .footer .footer-right {
+      font-size: 1.2rem;
+    }
+
+    /* Slider Section */
+    .slider-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 40px;
+    }
+
+    .slider {
+      width: 45%;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slider-images {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+
+    .slider-images img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .slider-buttons {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .slider-buttons button {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .slider-buttons button:hover {
+      background-color: #a79fbe;
+    }
+
+    /* Catchy Phrase and Text Section */
+    .catchy-phrase {
+      width: 45%;
+      padding: 20px;
+      background-color: #b1a588;
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .catchy-phrase h2 {
+      font-size: 2rem;
+    }
+
+    .catchy-phrase p {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    /* Stay in Touch Section */
+    .stay-in-touch {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f2a900;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .stay-in-touch:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="logo">UAE Heritage</div>
+    <nav class="navbar">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#heritage">Heritage</a></li>
+        <li><a href="#experiences">Experiences</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="image-container">
+      <img src="qasr-al-hosn-01.jpg" alt="UAE Heritage" class="background-image">
+      <div class="overlay"></div>
+      <div class="overlay-text">
+        <h1>Welcome to Heritage Hub: UAE Culture Uncovered</h1>
+        <p>Explore the culture, connect with locals, and book your adventure!</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Buttons Section (Centered Below Main Text) -->
+  <div class="buttons">
+    <button class="btn" onclick="showExploreSection()">Explore</button>
+    <button class="btn" onclick="showBookingSection()">Book Now</button>
+    <button class="btn" onclick="showContactSection()">Contact</button>
+  </div>
+
+  <!-- Slider Section -->
+  <section class="slider-container">
+    <div class="slider">
+      <div class="slider-images">
+        <img src="shz.jpg" alt="Image 1">
+        <img src="UAE-Cultural-Tourism-560x315.png" alt="Image 2">
+        <img src="26.jpg" alt="Image 3">
+      </div>
+    </div>
+    <div class="catchy-phrase">
+      <h2>Travel and Discover UAE's Rich Culture</h2>
+      <p>Learn about the our rich history, splendid art, and beautiful traditions of the UAE.
+        Book now and experience our heritage with the best local guides.</p>
+    </div>
+  </section>
+
+  <!-- Stay in Touch Button -->
+  <button class="stay-in-touch" onclick="window.location.href='mailto:info@uaeheritage.com'">
+    Stay in Touch
+  </button>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <div class="footer-right">
+      <p>Connect with us at <a href="mailto:info@uaeheritage.com">info@uaeheritage.com</a></p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Slider -->
+  <script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.slider-images img');
+    const totalImages = images.length;
+
+    function showSlide(index) {
+      const slides = document.querySelector('.slider-images');
+      const width = slides.clientWidth;
+      slides.style.transform = `translateX(-${index * width}px)`;
+    }
+
+    function autoSlide() {
+      currentIndex = (currentIndex + 1) % totalImages;
+      showSlide(currentIndex);
+    }
+
+    setInterval(autoSlide, 3000); // Change image every 3 seconds
+  </script>
+</body>
+</html>
